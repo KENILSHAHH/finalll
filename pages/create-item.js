@@ -4,7 +4,24 @@ import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { useRouter } from 'next/router'
 import Web3Modal from 'web3modal'
 
-const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
+// const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
+
+const ipfsClient = require('ipfs-http-client');
+
+const projectId = '2Lb4ThETZDCFUHWGRylVMPN6pga';
+const projectSecret = '91199d5519abf17d4266f401c6d95461';
+const auth =
+  'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+
+const client = ipfsClient.create({
+  host: 'ipfs.infura.io',
+  port: 5001,
+  protocol: 'https',
+  headers: {
+    authorization: auth,
+  },
+});
+
 
 import {
   nftaddress, nftmarketaddress
@@ -27,7 +44,7 @@ export default function CreateItem() {
           progress: (prog) => console.log(`received: ${prog}`)
         }
       )
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`
+      const url = `https://ipfs.io/ipfs/${added.path}`
       setFileUrl(url)
     } catch (error) {
       console.log('Error uploading file: ', error)
@@ -42,7 +59,7 @@ export default function CreateItem() {
     })
     try {
       const added = await client.add(data)
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`
+      const url = `https://ipfs.io/ipfs/${added.path}`
       /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
       createSale(url)
     } catch (error) {
