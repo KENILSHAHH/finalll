@@ -4,10 +4,10 @@ const fs = require('fs');
 // const infuraId = fs.readFileSync(".infuraid").toString().trim() || "";
 
 module.exports = {
-  defaultNetwork: "hardhat",
+  defaultNetwork: 'hardhat',
   networks: {
     hardhat: {
-      chainId: 1337
+      chainId: 1337,
     },
     /*
     mumbai: {
@@ -25,13 +25,13 @@ module.exports = {
     */
   },
   solidity: {
-    version: "0.8.4",
+    version: '^0.8.3',
     settings: {
       optimizer: {
         enabled: true,
-        runs: 200
-      }
-    }
-  }
+        runs: 200,
+      },
+    },
+  },
 };
 
